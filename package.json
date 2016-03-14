@@ -1,0 +1,36 @@
+{
+  "name": "moltin-util",
+  "version": "0.0.0",
+  "description": "Functions for working with Moltin API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nichoth/moltin-util.git"
+  },
+  "keywords": [
+    "moltin",
+    "api",
+    "tool",
+    "image",
+    "file",
+    "promise"
+  ],
+  "author": "Nick Thomas <nichoth@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "form-data": "^0.2.0",
+    "got": "^6.2.0",
+    "q": "^1.4.1",
+    "xtend": "^4.0.1"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/nichoth/moltin-util/issues"
+  },
+  "homepage": "https://github.com/nichoth/moltin-util#readme"
+}
