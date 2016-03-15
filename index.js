@@ -18,6 +18,8 @@ function MoltinUtil(creds) {
   this.authData = false;  // tokens from server
 }
 
+MoltinUtil.prototype.endpoints = require('./lib/endpoints');
+
 // => promise for auth object
 MoltinUtil.prototype.auth = function auth() {
   var self = this;
@@ -37,7 +39,7 @@ MoltinUtil.prototype.auth = function auth() {
 };
 
 MoltinUtil.prototype.createImage = function(data, buffer) {
-  var FILE_URL = 'https://api.molt.in/v1/files';
+  var FILE_URL = this.endpoints.IMAGES;
   var self = this;
 
   // => promise
@@ -73,6 +75,7 @@ MoltinUtil.prototype.createImage = function(data, buffer) {
   return self.auth().then(createImage);
 };
 
+// => {} (header object)
 MoltinUtil.prototype.authHeader = function() {
   return {
     Authorization: 'Bearer ' + this.authData.access_token
@@ -84,7 +87,7 @@ MoltinUtil.prototype.fetchImage = function(url) {
   return got(url, { encoding: null })
     .then(resp => resp.body)
   ;
-}
+};
 
 // => promise for buffer
 MoltinUtil.prototype.resize = function(width, image) {
@@ -95,6 +98,23 @@ MoltinUtil.prototype.resize = function(width, image) {
     })
   ;
 }
+
+// make a request with auth headers
+// => promise
+MoltinUtil.prototype.request = function(url, opts) {
+  var self = this;
+  return this.auth()
+    .then(auth => {
+      var headers = self.authHeader();
+      return got(url, xtend(opts, {
+        headers: headers
+      }));
+    })
+  ;
+};
+
+MoltinUtil.prototype.delProducts = function() {
+};
 
 MoltinUtil.prototype.jimp = jimp;
 

@@ -20,6 +20,7 @@ var util = MoltinUtil({
 
 util.fetchImage('http://example.com/image.jpg')
   .then(util.resize.bind(util, 600))
+  // opts for api: https://docs.moltin.com/images/
   .then(util.createImage.bind(util, {
     name: 'example.jpg'
   }))
