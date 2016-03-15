@@ -1,6 +1,6 @@
 {
   "name": "moltin-util",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Functions for working with Moltin API",
   "main": "index.js",
   "scripts": {
