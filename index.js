@@ -15,12 +15,15 @@ function MoltinUtil(creds) {
   };
 
   this.AUTH_URL = 'https://api.molt.in/oauth/access_token';
-  this.authData = '';  // tokens from server
+  this.authData = false;  // tokens from server
 }
 
 // => promise for auth object
 MoltinUtil.prototype.auth = function auth() {
   var self = this;
+  if ( self.authData ) {
+    return Promise.resolve(self.authData);
+  }
   return got(this.AUTH_URL, {
     method: 'POST',
     body: this.creds,
@@ -36,11 +39,6 @@ MoltinUtil.prototype.auth = function auth() {
 MoltinUtil.prototype.createImage = function(data, buffer) {
   var FILE_URL = 'https://api.molt.in/v1/files';
   var self = this;
-
-  function doAuth() {
-    if ( !this.authData ) return self.auth();
-    return Promise.resolve(self.authData);
-  }
 
   // => promise
   function createImage() {
@@ -72,7 +70,7 @@ MoltinUtil.prototype.createImage = function(data, buffer) {
     });
   }
 
-  return doAuth().then(createImage);
+  return self.auth().then(createImage);
 };
 
 MoltinUtil.prototype.authHeader = function() {

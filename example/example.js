@@ -1,3 +1,4 @@
+require('dotenv').config();
 var MoltinUtil = require('../index');
 
 var util = MoltinUtil({
