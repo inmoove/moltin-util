@@ -133,7 +133,7 @@ MoltinUtil.prototype.createProduct = function(product, images) {
           name: prod.slug+'-'+i,
           assign_to: prod.id
         }, img)
-          .then(imgs => { return { product: prod, images: imgs })
+          .then(imgs => { return { product: prod, images: imgs }; })
         ;
       }));
     })
