@@ -116,6 +116,30 @@ MoltinUtil.prototype.request = function(url, opts) {
   ;
 };
 
+// create a product (and images if you pass them in)
+// images = array of buffers or urls
+// => promise for { product: {}, images: [] }
+MoltinUtil.prototype.createProduct = function(product, images) {
+  var self = this;
+  images = images || [];
+  return this.auth()
+    .then(self.request.bind(self, self.endpoints.PRODUCTS, {
+      method: 'POST',
+      body: product
+    }))
+    .then(prod => {
+      return Promise.all(images.map( (img, i) => {
+        return self.createImage({
+          name: prod.slug+'-'+i,
+          assign_to: prod.id
+        }, img)
+          .then(imgs => { return { product: prod, images: imgs })
+        ;
+      }));
+    })
+  ;
+};
+
 MoltinUtil.prototype.delProducts = function() {
 };
 
