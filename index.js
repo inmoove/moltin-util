@@ -35,6 +35,43 @@ function resize(width, image) {
 }
 
 
+// imgs = [];
+// opts = {
+//   auth: { publicId: '', secretKey: '' },
+//   size: 500,
+//
+//   any fields for image api
+//   image: {
+//     filename: '',
+//     contentType: 'image/jpeg'
+//   }
+// }
+function uploadImages(imgs, opts) {
+  var imgBuffers;
+  return Promise.all(imgs.map(i => fetchImage(i)))
+    .then(is => {
+      if (opts.size) return Promise.all(is.map(i => resize(opts.size, i)));
+      return is;
+    }
+    .then(is => {
+      imgBuffers = is;
+      return auth(opts.auth);
+    })
+    .then(auth => {
+      return Promise.all(imgBuffers.map(img, index => {
+        return createImage(auth, xtend(opts.image, {
+          image: {
+            file: img,
+            filename: (opts.image.filename || 'img')+index,
+            contentType: opts.image.contentType || 'image/jpeg'
+          }
+        }));
+      }));
+    })
+  ;
+}
+
+
 function fetchImage(url) {
   return got(url, { encoding: null });
 }
@@ -76,5 +113,6 @@ module.exports = {
   resize: resize,
   auth: auth,
   fetchImage: fetchImage,
-  createImage: createImage
+  createImage: createImage,
+  uploadImages: uploadImages
 };
