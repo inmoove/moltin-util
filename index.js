@@ -107,8 +107,11 @@ MoltinUtil.prototype.request = function(url, opts) {
     .then(auth => {
       var headers = self.authHeader();
       return got(url, xtend(opts, {
-        headers: headers
-      }));
+        headers: headers,
+        json: true
+      }))
+        .then(resp => resp.body)
+      ;
     })
   ;
 };

@@ -14,3 +14,4 @@ util.fetchImage('https://img1.etsystatic.com/128/0/6265082/il_fullxfull.86765653
   .then(resp => console.log(resp.body))
   .catch(err => console.log('error', err))
 ;
+
