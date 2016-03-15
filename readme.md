@@ -1,6 +1,6 @@
 # moltin util
 
-Functions for things missing from the `moltin` library. Right now it can authorize and create images. All functions return promises.
+Upload images to moltin. Plus, promises.
 
 
 ## install
@@ -11,46 +11,19 @@ Functions for things missing from the `moltin` library. Right now it can authori
 ## example
 
 ```js
-var util = require('moltin-util');
+var MoltinUtil = require('moltin-util');
 
-// wrapper around `got`
-util.fetchImage('http://example.com/picture.jpg')
-  .then(resp => resp.body)
-  .then(util.resize.bind(null, 500))
-  // API requires filename and contentType
-  .then(image => {
-    return {
-      image: {
-        file: image, filename: 'test.jpg', contentType: 'image/jpeg'
-      },
-      // add other moltin fields here
-      // ex: 'assign_to': 1
-    };
-  })
-  .then(upload)
+var util = MoltinUtil({
+  publicId: process.env.PUBLIC_ID,
+  secretKey: process.env.SECRET_KEY
+});
+
+util.fetchImage('http://example.com/image.jpg')
+  .then(util.resize.bind(util, 600))
+  .then(util.createImage.bind(util, {
+    name: 'example.jpg'
+  }))
   .then(resp => console.log(resp.body))
+  .catch(err => console.log('error', err))
 ;
-
-function upload(imageObj) {
-  return util.auth({
-      publicId: process.env.PUBLIC_ID,
-      secretKey: process.env.SECRET_KEY
-    })
-    .then(auth => util.createImage(auth, imageObj))
-  ;
-}
-```
-
-
-## API
-
-```js
-module.exports = {
-  jimp: jimp,  // expose `jimp` module
-  resize: resize, // jimp.image.resize
-  // return promise
-  auth: auth,
-  fetchImage: fetchImage,
-  createImage: createImage
-};
 ```
