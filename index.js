@@ -127,15 +127,16 @@ MoltinUtil.prototype.createProduct = function(product, images) {
       method: 'POST',
       body: product
     }))
+    .then(prod => prod.result)
     .then(prod => {
       return Promise.all(images.map( (img, i) => {
         return self.createImage({
           name: prod.slug+'-'+i,
           assign_to: prod.id
-        }, img)
-          .then(imgs => { return { product: prod, images: imgs }; })
-        ;
-      }));
+        }, img)})
+      )
+        .then(imgs => { return { product: prod, images: imgs }; })
+      ;
     })
   ;
 };
