@@ -1,7 +1,9 @@
 {
   "name": "moltin-util",
-  "bin": { "moltin": "./bin/cmd.js" },
-  "version": "0.0.9",
+  "bin": {
+    "moltin": "./bin/cmd.js"
+  },
+  "version": "0.0.10",
   "description": "Tool for working with the Moltin API",
   "main": "index.js",
   "scripts": {
