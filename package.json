@@ -20,7 +20,9 @@
     "image",
     "file",
     "promise",
-    "client"
+    "client",
+    "cli",
+    "command line"
   ],
   "author": "Nick Thomas <nichoth@gmail.com>",
   "license": "ISC",

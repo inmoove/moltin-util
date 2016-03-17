@@ -1,6 +1,6 @@
 # moltin util
 
-Tool for working with the Moltin API. Plus, promises and CLI!
+Tool for working with the Moltin API. Plus: promises and CLI.
 
 
 ## install
