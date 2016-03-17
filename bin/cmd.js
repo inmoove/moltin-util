@@ -1,9 +1,10 @@
+#!/usr/bin/env node
 var urlJoin = require('url-join');
 var client = require('../')(require('../lib/auth'));
 
 var args = process.argv.slice(2);
-var ep = client.endpoints[args[0].toUpperCase()];
-ep = urlJoin(ep, ...args.slice(1));
+var ep = client.endpoints.BASE;
+ep = urlJoin(ep, ...args);
 console.log(ep);
 
 client.request(ep)

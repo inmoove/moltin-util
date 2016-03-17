@@ -1,12 +1,15 @@
 # moltin util
 
-Tool for working with the Moltin API. Plus, promises!
+Tool for working with the Moltin API. Plus, promises and CLI!
 
 
 ## install
 
     $ npm install moltin-util
 
+Or for the cli:
+
+    $ npm install -g moltin-util
 
 ## example
 
@@ -78,3 +81,23 @@ client.createProduct(product, images)
   .catch(err => console.log(err, err.response.body))
 ;
 ```
+
+## command line
+
+Fetch data from the api and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places for authentication data:
+
+.moltin-utilrc:
+```
+PUBLIC_ID=123
+SECRET_KEY=123
+```
+
+GET request to flows endpoint:
+
+    $ moltin flows
+
+Additional path segments are just added on as arguments:
+
+Call `https://api.molt.in/v1/flows/products/fields`
+
+    $ moltin flows products fields
