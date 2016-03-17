@@ -84,7 +84,7 @@ client.createProduct(product, images)
 
 ## command line
 
-Fetch data from the api and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places for authentication data:
+Fetch data from the API and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places, or authentication keys can be passed in as environment variables.
 
 .moltin-utilrc:
 ```
@@ -92,9 +92,13 @@ PUBLIC_ID=123
 SECRET_KEY=123
 ```
 
-GET request to flows endpoint:
+### examples
+
+GET request to `flows` endpoint:
 
     $ moltin flows
+
+---
 
 Additional path segments are just added on as arguments:
 
