@@ -3,7 +3,7 @@
   "bin": {
     "moltin": "./bin/cmd.js"
   },
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Tool for working with the Moltin API",
   "main": "index.js",
   "scripts": {
@@ -34,8 +34,7 @@
     "xtend": "^4.0.1",
     "dotenv": "^2.0.0"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/nichoth/moltin-util/issues"
   },
