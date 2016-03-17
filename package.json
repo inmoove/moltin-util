@@ -1,5 +1,6 @@
 {
   "name": "moltin-util",
+  "bin": { "moltin": "./bin/cmd.js" },
   "version": "0.0.9",
   "description": "Tool for working with the Moltin API",
   "main": "index.js",
@@ -26,6 +27,7 @@
     "got": "^6.2.0",
     "jimp": "^0.2.21",
     "q": "^1.4.1",
+    "rc": "^1.1.6",
     "url-join": "0.0.1",
     "xtend": "^4.0.1"
   },
