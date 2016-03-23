@@ -24,9 +24,9 @@ var client = MoltinUtil({
 });
 
 client.fetchImage('http://example.com/image.jpg')
-  .then(util.resize.bind(util, 600))
+  .then(client.resize.bind(client, 600))
   // opts for api: https://docs.moltin.com/images/
-  .then(util.createImage.bind(util, {
+  .then(client.createImage.bind(client, {
     name: 'example.jpg'
   }))
   .then(resp => console.log(resp.body))
@@ -44,7 +44,7 @@ var client = require('moltin-util')({
 });
 
 // call `got` with some defaults
-client.request(util.endpoints.PRODUCTS)
+client.request(client.endpoints.PRODUCTS)
   .then(resp => console.log(resp))
   .catch(err => console.log('err', err))
 ;
@@ -84,9 +84,11 @@ client.createProduct(product, images)
 
 ## command line
 
+    $ npm install -g moltin-util
+
 Fetch data from the API and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places, or authentication keys can be passed in as environment variables.
 
-.moltin-utilrc:
+`.moltin-utilrc`:
 ```
 PUBLIC_ID=123
 SECRET_KEY=123
