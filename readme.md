@@ -7,7 +7,7 @@ Tool for working with the Moltin API. Plus: promises and CLI.
 
     $ npm install moltin-util
 
-Or for the cli:
+Or for the CLI:
 
     $ npm install -g moltin-util
 
@@ -43,7 +43,6 @@ var client = require('moltin-util')({
   secretKey: process.env.SECRET_KEY
 });
 
-// call `got` with some defaults
 client.request(client.endpoints.PRODUCTS)
   .then(resp => console.log(resp))
   .catch(err => console.log('err', err))
@@ -86,10 +85,10 @@ client.createProduct(product, images)
 
     $ npm install -g moltin-util
 
-Fetch data from the API and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places, or authentication keys can be passed in as environment variables.
+Fetch data from the API and print it to stdout. It looks for a `.moltin-utilrc` file in the normal places (like your home directory), or authentication keys can be passed in as environment variables.
 
-`.moltin-utilrc`:
-```
+```ini
+; .moltin-utilrc
 PUBLIC_ID=123
 SECRET_KEY=123
 ```
@@ -104,6 +103,6 @@ GET request to `flows` endpoint:
 
 Additional path segments are just added on as arguments:
 
-Call `https://api.molt.in/v1/flows/products/fields`
+Call `https://api.molt.in/v1/flows/products/fields`:
 
     $ moltin flows products fields
