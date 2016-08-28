@@ -25,8 +25,8 @@ var client = MoltinUtil({
 
 client.fetchImage('http://example.com/image.jpg')
   .then(client.resize.bind(client, 600))
-  // opts for api: https://docs.moltin.com/images/
   .then(client.createImage.bind(client, {
+    // opts for api: https://docs.moltin.com/images/
     name: 'example.jpg'
   }))
   .then(resp => console.log(resp.body))

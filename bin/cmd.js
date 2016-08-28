@@ -8,6 +8,6 @@ ep = urlJoin(ep, ...args);
 console.log(ep);
 
 client.request(ep)
-  .then(resp => console.log(resp))
+  .then(resp => console.log(JSON.stringify(resp, null, 2)))
   .catch(err => console.log(err, err.response.body));
 ;
