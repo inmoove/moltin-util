@@ -3,7 +3,7 @@
   "bin": {
     "moltin": "./bin/cmd.js"
   },
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Tool for working with the Moltin API",
   "main": "index.js",
   "scripts": {
