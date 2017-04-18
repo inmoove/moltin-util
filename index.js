@@ -141,6 +141,19 @@ MoltinUtil.prototype.createProduct = function(product, images) {
   ;
 };
 
+// create a currency
+// => promise for { currency: {} }
+MoltinUtil.prototype.createCurrency = function(currency) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, self.endpoints.CURRENCIES, {
+      method: 'POST',
+      body: currency
+    }))
+    .then(curr => curr.result)
+  ;
+};
+
 MoltinUtil.prototype.delProducts = function() {
 };
 
