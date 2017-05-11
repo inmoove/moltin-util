@@ -97,7 +97,7 @@ MoltinUtil.prototype.resize = function(width, image) {
       return Q.nfcall(i.getBuffer.bind(i), jimp.MIME_JPEG);
     })
   ;
-}
+};
 
 // make a request with auth headers
 // => promise
@@ -149,6 +149,62 @@ MoltinUtil.prototype.createCurrency = function(currency) {
     .then(self.request.bind(self, self.endpoints.CURRENCIES, {
       method: 'POST',
       body: currency
+    }))
+    .then(curr => curr.result)
+  ;
+};
+
+// create a modifier
+// => promise for { modifier: {} }
+MoltinUtil.prototype.createModifier = function(modifier, product_id) {
+  var self = this;
+  var url = self.endpoints.MODIFIER.replace('{product_id}', product_id);
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'POST',
+      body: modifier
+    }))
+    .then(curr => curr.result)
+  ;
+};
+
+// create a variation
+// => promise for { variation: {} }
+MoltinUtil.prototype.createVariation = function(variation, product_id, modifier_id) {
+  var self = this;
+  var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id);
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'POST',
+      body: variation
+    }))
+    .then(curr => curr.result)
+  ;
+};
+
+// remove a modifier
+// => promise for { modifier: {} }
+MoltinUtil.prototype.removeModifier = function(modifier_id, product_id) {
+  var self = this;
+  var url = self.endpoints.MODIFIER.replace('{product_id}', product_id) + '/' + modifier_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
+    }))
+    .then(curr => curr.result)
+  ;
+};
+
+// remove a variation
+// => promise for { variation: {} }
+MoltinUtil.prototype.removeVariation = function(variation_id, product_id, modifier_id) {
+  var self = this;
+  var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id) + '/' + variation_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
     }))
     .then(curr => curr.result)
   ;
