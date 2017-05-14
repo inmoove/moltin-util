@@ -110,8 +110,9 @@ MoltinUtil.prototype.request = function(url, opts) {
         headers: headers,
         json: true
       }))
-        .then(resp => resp.body)
-      ;
+      .then(resp => {
+        return resp.body;
+      });
     })
   ;
 };
@@ -150,7 +151,7 @@ MoltinUtil.prototype.createCurrency = function(currency) {
       method: 'POST',
       body: currency
     }))
-    .then(curr => curr.result)
+    .then(currency => { return { currency: currency.result };})
   ;
 };
 
@@ -158,19 +159,19 @@ MoltinUtil.prototype.createCurrency = function(currency) {
 // => promise for { modifier: {} }
 MoltinUtil.prototype.createModifier = function(modifier, product_id) {
   var self = this;
-  var url = self.endpoints.MODIFIER.replace('{product_id}', product_id);
+  var url = self.endpoints.MODIFIERS.replace('{product_id}', product_id);
   return this.auth()
     .then(self.request.bind(self, url, {
       method: 'POST',
       body: modifier
     }))
-    .then(curr => curr.result)
+    .then(modifier => { return { modifier: modifier.result };})
   ;
 };
 
 // create a variation
 // => promise for { variation: {} }
-MoltinUtil.prototype.createVariation = function(variation, product_id, modifier_id) {
+MoltinUtil.prototype.createVariation = function(variation, modifier_id, product_id) {
   var self = this;
   var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id);
   return this.auth()
@@ -178,7 +179,7 @@ MoltinUtil.prototype.createVariation = function(variation, product_id, modifier_
       method: 'POST',
       body: variation
     }))
-    .then(curr => curr.result)
+    .then(variation => { return { variation: variation.result };})
   ;
 };
 
@@ -186,13 +187,13 @@ MoltinUtil.prototype.createVariation = function(variation, product_id, modifier_
 // => promise for { modifier: {} }
 MoltinUtil.prototype.removeModifier = function(modifier_id, product_id) {
   var self = this;
-  var url = self.endpoints.MODIFIER.replace('{product_id}', product_id) + '/' + modifier_id;
+  var url = self.endpoints.MODIFIERS.replace('{product_id}', product_id) + '/' + modifier_id;
   return this.auth()
     .then(self.request.bind(self, url, {
       method: 'DELETE',
       body: {}
     }))
-    .then(curr => curr.result)
+    .then(status => { return status; })
   ;
 };
 
@@ -206,7 +207,7 @@ MoltinUtil.prototype.removeVariation = function(variation_id, product_id, modifi
       method: 'DELETE',
       body: {}
     }))
-    .then(curr => curr.result)
+    .then(status => { return status; })
   ;
 };
 
