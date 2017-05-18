@@ -183,8 +183,22 @@ MoltinUtil.prototype.createVariation = function(variation, modifier_id, product_
   ;
 };
 
+// create a single
+// => promise for { single: {} }
+MoltinUtil.prototype.createSingle = function(single, modifier_id, product_id) {
+  var self = this;
+  var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id);
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'POST',
+      body: single
+    }))
+    .then(single => { return { single: single.result };})
+  ;
+};
+
 // remove a modifier
-// => promise for { modifier: {} }
+// => promise for { status: {} }
 MoltinUtil.prototype.removeModifier = function(modifier_id, product_id) {
   var self = this;
   var url = self.endpoints.MODIFIERS.replace('{product_id}', product_id) + '/' + modifier_id;
@@ -198,10 +212,24 @@ MoltinUtil.prototype.removeModifier = function(modifier_id, product_id) {
 };
 
 // remove a variation
-// => promise for { variation: {} }
+// => promise for { status: {} }
 MoltinUtil.prototype.removeVariation = function(variation_id, product_id, modifier_id) {
   var self = this;
   var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id) + '/' + variation_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
+    }))
+    .then(status => { return status; })
+  ;
+};
+
+// remove a single
+// => promise for { status: {} }
+MoltinUtil.prototype.removeSingle = function(single_id, product_id, modifier_id) {
+  var self = this;
+  var url = self.endpoints.VARIATIONS.replace('{product_id}', product_id).replace('{modifier_id}', modifier_id) + '/' + single_id;
   return this.auth()
     .then(self.request.bind(self, url, {
       method: 'DELETE',
