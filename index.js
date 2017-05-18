@@ -142,6 +142,34 @@ MoltinUtil.prototype.createProduct = function(product, images) {
   ;
 };
 
+// edit a product
+// => promise for { product: {} }
+MoltinUtil.prototype.editProduct = function(product_id, data) {
+  var self = this;
+  var url = self.endpoints.PRODUCTS + '/' + product_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'PUT',
+      body: data
+    }))
+    .then(product => { return { product: product.result };})
+  ;
+};
+
+// remove a product
+// => promise for { status: {} }
+MoltinUtil.prototype.removeProduct = function(product_id) {
+  var self = this;
+  var url = self.endpoints.PRODUCTS + '/' + product_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
+    }))
+    .then(status => { return status; })
+  ;
+};
+
 // create a currency
 // => promise for { currency: {} }
 MoltinUtil.prototype.createCurrency = function(currency) {
