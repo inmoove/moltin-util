@@ -170,6 +170,61 @@ MoltinUtil.prototype.removeProduct = function(product_id) {
   ;
 };
 
+// create a customer
+// => promise for { customer: {} }
+MoltinUtil.prototype.createCustomer = function(customer) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, self.endpoints.CURRENCIES, {
+      method: 'POST',
+      body: customer
+    }))
+    .then(customer => { return { customer: customer.result };})
+  ;
+};
+
+// create a address
+// => promise for { address: {} }
+MoltinUtil.prototype.createAddress = function(customer_id, address) {
+  var self = this;
+  var url = self.endpoints.ADDRESSES.replace('{customer_id}', customer_id);
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'POST',
+      body: address
+    }))
+    .then(address => { return { address: address.result };})
+  ;
+};
+
+// edit a address
+// => promise for { address: {} }
+MoltinUtil.prototype.editAddress = function(customer_id, address) {
+  var self = this;
+  var url = self.endpoints.ADDRESSES.replace('{customer_id}', customer_id);
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'PUT',
+      body: address
+    }))
+    .then(address => { return { address: address.result };})
+  ;
+};
+
+// remove a address
+// => promise for { status: {} }
+MoltinUtil.prototype.removeAddress = function(customer_id, address_id) {
+  var self = this;
+  var url = self.endpoints.ADDRESSES.replace('{customer_id}', customer_id) + '/' + address_id;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
+    }))
+    .then(status => { return status; })
+  ;
+};
+
 // create a currency
 // => promise for { currency: {} }
 MoltinUtil.prototype.createCurrency = function(currency) {
@@ -267,7 +322,44 @@ MoltinUtil.prototype.removeSingle = function(single_id, product_id, modifier_id)
   ;
 };
 
-MoltinUtil.prototype.delProducts = function() {
+// ALL ITEMS
+// create a item
+// => promise for { data: {} }
+MoltinUtil.prototype.create = function(url, data) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'POST',
+      body: data
+    }))
+    .then(data => { return { data: data.result };})
+  ;
+};
+
+// edit a item
+// => promise for { data: {} }
+MoltinUtil.prototype.edit = function(url, data) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'PUT',
+      body: data
+    }))
+    .then(data => { return { data: data.result };})
+  ;
+};
+
+// remove a item
+// => promise for { status: {} }
+MoltinUtil.prototype.remove = function(url) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'DELETE',
+      body: {}
+    }))
+    .then(status => { return status; })
+  ;
 };
 
 MoltinUtil.prototype.jimp = jimp;
