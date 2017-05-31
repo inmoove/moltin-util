@@ -199,9 +199,9 @@ MoltinUtil.prototype.createAddress = function(customer_id, address) {
 
 // edit a address
 // => promise for { address: {} }
-MoltinUtil.prototype.editAddress = function(customer_id, address) {
+MoltinUtil.prototype.editAddress = function(customer_id, address_id, address) {
   var self = this;
-  var url = self.endpoints.ADDRESSES.replace('{customer_id}', customer_id);
+  var url = self.endpoints.ADDRESSES.replace('{customer_id}', customer_id) + '/' + address_id;
   return this.auth()
     .then(self.request.bind(self, url, {
       method: 'PUT',
