@@ -175,7 +175,7 @@ MoltinUtil.prototype.removeProduct = function(product_id) {
 MoltinUtil.prototype.createCustomer = function(customer) {
   var self = this;
   return this.auth()
-    .then(self.request.bind(self, self.endpoints.CURRENCIES, {
+    .then(self.request.bind(self, self.endpoints.CUSTOMERS, {
       method: 'POST',
       body: customer
     }))
@@ -323,6 +323,19 @@ MoltinUtil.prototype.removeSingle = function(single_id, product_id, modifier_id)
 };
 
 // ALL ITEMS
+
+// get all item
+// => promise for { data: {} }
+MoltinUtil.prototype.get = function(url) {
+  var self = this;
+  return this.auth()
+    .then(self.request.bind(self, url, {
+      method: 'GET'
+    }))
+    .then(data => { return { data: data.result };})
+  ;
+};
+
 // create a item
 // => promise for { data: {} }
 MoltinUtil.prototype.create = function(url, data) {
