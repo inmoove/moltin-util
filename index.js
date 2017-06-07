@@ -338,7 +338,7 @@ MoltinUtil.prototype.get = function(url) {
 
 // create a item
 // => promise for { data: {} }
-MoltinUtil.prototype.create = function(url, data) {
+MoltinUtil.prototype.post = function(url, data) {
   var self = this;
   return this.auth()
     .then(self.request.bind(self, url, {
@@ -351,7 +351,7 @@ MoltinUtil.prototype.create = function(url, data) {
 
 // edit a item
 // => promise for { data: {} }
-MoltinUtil.prototype.edit = function(url, data) {
+MoltinUtil.prototype.put = function(url, data) {
   var self = this;
   return this.auth()
     .then(self.request.bind(self, url, {
