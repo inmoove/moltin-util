@@ -23,19 +23,23 @@ MoltinUtil.prototype.endpoints = require('./lib/endpoints');
 // => promise for auth object
 MoltinUtil.prototype.auth = function auth() {
   var self = this;
-  if ( self.authData ) {
+
+  var now = Date.now();
+
+  if (self.authData && self.authData.expires * 1000 > now) {
     return Promise.resolve(self.authData);
-  }
-  return got(this.AUTH_URL, {
-    method: 'POST',
-    body: this.creds,
-    json: true
-  })
-    .then(resp => {
-      self.authData = resp.body;
-      return resp.body;
+  } else {
+    return got(this.AUTH_URL, {
+      method: 'POST',
+      body: this.creds,
+      json: true
     })
-  ;
+      .then(resp => {
+        self.authData = resp.body;
+        console.log("Moltin renew token: ", JSON.stringify(self.authData));
+        return resp.body;
+      })
+  };
 };
 
 MoltinUtil.prototype.createImage = function(data, buffer) {
